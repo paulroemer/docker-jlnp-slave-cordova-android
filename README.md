@@ -1,6 +1,6 @@
-# Jenkins JNLP slave Docker image
+# Jenkins JNLP slave Docker image with prepared Cordova and Android
 
-[`jenkinsci/jnlp-slave`](https://hub.docker.com/r/jenkinsci/jnlp-slave/)
+[`paulroemer/docker-jlnp-slave-cordova-android`](https://hub.docker.com/r/paulroemer/jlnp-slave-cordova-android/)
 
 A [Jenkins](https://jenkins-ci.org) slave using JNLP to establish connection.
 
@@ -12,7 +12,7 @@ Make sure your ECS container agent is [updated](http://docs.aws.amazon.com/Amazo
 
 To run a Docker container
 
-    docker run jenkinsci/jnlp-slave -url http://jenkins-server:port <secret> <slave name>
+    docker run paulroemer/docker-jlnp-slave-cordova-android -url http://jenkins-server:port <secret> <slave name>
 
 optional environment variables:
 

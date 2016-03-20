@@ -20,8 +20,8 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #  THE SOFTWARE.
 
-FROM java:8-jdk
-MAINTAINER Nicolas De Loof <nicolas.deloof@gmail.com>
+FROM beevelop/cordova
+MAINTAINER Paul Römer <paul.roemer@mailbox.org>
 
 ENV HOME /home/jenkins
 RUN useradd -c "Jenkins user" -d $HOME -m jenkins
