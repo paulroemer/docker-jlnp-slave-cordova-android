@@ -23,17 +23,19 @@
 FROM beevelop/cordova
 MAINTAINER Paul Römer <paul.roemer@mailbox.org>
 
+# Install and configure a basic SSH server
+RUN apt-get update &&\
+    apt-get install -y openssh-server &&\
+    apt-get clean -y && rm -rf /var/lib/apt/lists/* &&\
+    sed -i 's|session    required     pam_loginuid.so|session    optional     pam_loginuid.so|g' /etc/pam.d/sshd &&\
+    mkdir -p /var/run/sshd
+
 ENV HOME /home/jenkins
-RUN useradd -c "Jenkins user" -d $HOME -m jenkins
-
-RUN curl --create-dirs -sSLo /usr/share/jenkins/slave.jar http://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/2.52/remoting-2.52.jar \
-  && chmod 755 /usr/share/jenkins \
-  && chmod 644 /usr/share/jenkins/slave.jar
-
-COPY jenkins-slave /usr/local/bin/jenkins-slave
+RUN useradd -c "Jenkins user" -d $HOME -m jenkins && echo "jenkins:jenkins" | chpasswd
 
 VOLUME /home/jenkins
 WORKDIR /home/jenkins
-USER jenkins
 
-ENTRYPOINT ["jenkins-slave"]
+EXPOSE 22
+
+CMD ["/usr/sbin/sshd", "-D"]
