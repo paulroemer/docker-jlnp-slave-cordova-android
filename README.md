@@ -12,7 +12,7 @@ Make sure your ECS container agent is [updated](http://docs.aws.amazon.com/Amazo
 
 To run a Docker container
 
-    docker run paulroemer/jlnp-slave-cordova-android -url http://jenkins-server:port <secret> <slave name>
+    docker run panderpeter/jlnp-slave-cordova-android -url http://jenkins-server:port <secret> <slave name>
 
 optional environment variables:
 
