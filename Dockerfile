@@ -23,15 +23,16 @@
 FROM beevelop/cordova
 MAINTAINER Paul Römer <paul.roemer@mailbox.org>
 
-# Install and configure a basic SSH server
+# Install and configure SSH and git
 RUN apt-get update &&\
+    apt-get install -y git &&\
     apt-get install -y openssh-server &&\
     apt-get clean -y && rm -rf /var/lib/apt/lists/* &&\
     sed -i 's|session    required     pam_loginuid.so|session    optional     pam_loginuid.so|g' /etc/pam.d/sshd &&\
     mkdir -p /var/run/sshd
 
 ENV HOME /home/jenkins
-RUN useradd -c "Jenkins user" -d $HOME -m jenkins && echo "jenkins:jenkins" | chpasswd
+RUN useradd -c "Jenkins user" -d $HOME -m jenkins && echo "jenkins:jenkins" | chpasswd && chown -R jenkins.jenkins $HOME
 
 VOLUME /home/jenkins
 WORKDIR /home/jenkins
